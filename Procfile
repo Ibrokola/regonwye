@@ -1,0 +1,1 @@
+web: gunicorn regonwye.wsgi --log-file -
