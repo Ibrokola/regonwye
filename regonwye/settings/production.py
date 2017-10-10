@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from regonwye.aws.conf import *
 from decouple import config
 from .base import *
 
