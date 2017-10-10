@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
+import sys
 from regonwye.aws.conf import *
 from decouple import config
 
@@ -8,6 +9,7 @@ from decouple import config
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+sys.path.append(BASE_DIR)
 
 # from .base import *
 
@@ -148,7 +150,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 
-# try:
-#     from .local import *
-# except ImportError:
-#     pass
+try:
+    from .local import *
+except ImportError:
+    pass
