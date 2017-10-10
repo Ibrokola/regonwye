@@ -25,6 +25,7 @@ ALLOWED_HOSTS = ['regonwye.herokuapp.com',]
 INSTALLED_APPS = [
     'home',
     'search',
+    'blog',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
