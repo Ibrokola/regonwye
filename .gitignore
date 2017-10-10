@@ -1,2 +1,3 @@
 .env
 regonwye/settings/dev.py
+db.sqlite3
