@@ -1,22 +1,27 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
     <div class="section section-header">
         <div class="parallax filter filter-color-black">
+            {# if page.landing_image #}
+                {% image page.landing_image max-1800x978 %}
             <div class="image" style="
-                background-image: url('https://images.unsplash.com/photo-1449247613801-ab06418e2861?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=bb80a15068b7e5da425b33750319daaa')">
+                background-image: url('page.landing_image.url')">
             </div>
+            {# endif #}
             <div class="container">
+                {# for post in homepage #}
                 <div class="content">
-                    <p>Welcome<span> to </span></p>
-                    <h1>Registry on Wye</h1>
+                    <p>{{ self.heading }}<span></span></p>
+                    <h1 class="h1-responsive">{{ self.sub_heading }}</h1>
                     <div class="separator-container">
                         <div class="separator line-separator">♦</div>
                     </div>
-                    <h5>Where all registry services related to vehicles, certificates, and forms are carried out</h5>
+                    <h5>{{ self.intro|richtext }}</h5>
                 </div>
+                {# endfor #}
             </div>
         </div>
         <a href="" data-scroll="true" data-id="#firstSection" class="scroll-arrow hidden-xs hidden-sm">
