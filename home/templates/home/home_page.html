@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="row">
                 {% for item in self.home_market.all %}
-                    <div class="col-sm-3 cols-xs-3 col-md-3">
+                    <div class="cols-xs-3 col-sm-3 col-md-3">
                             {% image item.market_image fill-398x398 as background %}
                             {# image item.market_image fill-300x300 #}
                             <img src="{{ background.url }}" alt="" class="img-fluid img-responsive center-block">
