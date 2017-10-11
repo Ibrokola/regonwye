@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
@@ -28,5 +28,245 @@
             <i class="fa fa-angle-down"></i>
         </a>
     </div>
-    {{ page.body|richtext }}
+    <div class="section" id="firstSection">
+        <div class="container">
+            <div class="title-area">
+            {% for item in self.home_landing.all %}
+                <h2>{{ item.landing_title }}</h2>
+                <div class="separator separator-default">♦</div>
+                <p class="description">
+                    {{ item.landing_intro|richtext }}
+                </p>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section-get-started">
+        <div class="parallax filter filter-color-black">
+            <div class="image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3e/I-80_Eastshore_Fwy.jpg')">
+            </div>
+            <div class="container">
+                <div class="row">
+                {% for item in self.home_market.all %}
+                    <div class="col-md-3 col-sm-3">
+                            {% image item.market_image fill-398x398 as background %}
+                            {# image item.market_image fill-300x300 #}
+                            <img src="{{ background.url }}" alt="" class="img-fluid img-responsive center-block">
+                        <h4>{{ item.market_title }}</h4>
+                        <a href="{{ item.market_url }}" target="_blank"><button type="button" class="btn btn-danger btn-lg btn-round">{{ item.market_button }}</button></a>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="section section-our-projects section-our-projects-fluid">            
+        <div class="title-area">
+            <h2>Services</h2>
+            <div class="separator separator-default">♦</div>
+            <p class="description">
+                Here are some services of the offered at Registry on Wye
+            </p>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-1.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-danger label-fill">Website Redesign</label>
+                                <h3>Famous Website Redesign</h3>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-5.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-success label-fill">Desktop Development</label>
+                                <h3>Desktop App</h3>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-6.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-danger label-fill">Marketing</label>
+                                <h3>Social Marketing</h3>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-6.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-danger label-fill">Marketing</label>
+                                <h3>Social Marketing</h3>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="section section-our-projects">            
+        <div class="title-area">
+            <!-- <h5 class="subtitle text-gray">Here you can check</h5> -->
+            <h2>Services</h2>
+            <div class="separator separator-default">♦</div>
+            <p class="description">
+                    Here are some of the services offered at Registry on Wye
+            </p>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-1.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-danger label-fill">Website Redesign</label>
+                                <h2 class="h2-responsive">Famous Website Redesign</h2>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-6.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-danger label-fill">Marketing</label>
+                                <h2 class="h2-responsive">Social Marketing</h2>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-4.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-danger label-fill">Website Redesign</label>
+                                <h2 class="h2-responsive">Behance Redesign</h2>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="project">
+                        <img src="{% static 'img/project-3.jpg' %}" />
+                        <a class="over-area" href="#gaia">
+                            <div class="content">
+                                <label class="label label-info label-fill">App Development</label>
+                                <h2 class="h2-responsive">Analytics App Android</h2>
+                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    
+    
+    <div class="section section-card-blog">
+            <div class="container">
+                <div class="title-area">
+                    <!-- <h5 class="text-gray">Don't miss our</h5> -->
+                    <h2>Blog Posts</h2>
+                    <div class="separator separator-default">♦</div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <div class="card card-blog">
+                            <a href="blog-posts.html" class="header">
+                                <img src="{% static "img/header-7.jpeg" %}" class="image-header">
+                            </a>
+                            <div class="content">
+                                <div class="circle-black">
+                                    <div class="circle">
+                                        <div class="date-wrapper">
+                                            <span class="month">Apr</span>
+                                            <span class="date">12</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="blog-posts.html" class="card-title"><h3>We Are Here to Make Life Better</h3></a>
+                                <h6 class="card-category text-warning">Life Tips & Tricks</h6>
+                                <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-4 col-md-4">
+                        <div class="card card-blog">
+                            <a href="blog-posts.html" class="header">
+                                <img src="{% static "img/header-7.jpeg" %}" class="image-header">
+                            </a>
+                            <div class="content">
+                                <div class="circle-black">
+                                    <div class="circle">
+                                        <div class="date-wrapper">
+                                            <span class="month">Apr</span>
+                                            <span class="date">12</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="blog-posts.html" class="card-title"><h3>We Are Here to Make Life Better</h3></a>
+                                <h6 class="card-category text-warning">Life Tips & Tricks</h6>
+                                <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-4 col-md-4">
+                        <div class="card card-blog">
+                            <a href="blog-posts.html" class="header">
+                                <img src="{% static "img/header-7.jpeg" %}" class="image-header">
+                            </a>
+                            <div class="content">
+                                <div class="circle-black">
+                                    <div class="circle">
+                                        <div class="date-wrapper">
+                                            <span class="month">Apr</span>
+                                            <span class="date">12</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="blog-posts.html" class="card-title"><h3>We Are Here to Make Life Better</h3></a>
+                                <h6 class="card-category text-warning">Life Tips & Tricks</h6>
+                                <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 {% endblock %}

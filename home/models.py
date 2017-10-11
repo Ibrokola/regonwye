@@ -23,6 +23,36 @@ class HomePageRelatedLink(Orderable):
         FieldPanel('url'),
     ]
 
+class HomePageLanding(Orderable):
+    page = ParentalKey('HomePage', related_name='home_landing')
+    landing_title = models.CharField(max_length=255,null=True,blank=True)
+    landing_intro = RichTextField(null=True, blank=True)
+
+    panels = [
+        FieldPanel('landing_title'),
+        FieldPanel('landing_intro', classname='after header image intro')
+    ]
+
+class HomePageMarketing(Orderable):
+    page = ParentalKey('HomePage', related_name='home_market')
+    market_title = models.CharField(max_length=300, null=True, blank=True)
+    market_button = models.CharField(max_length=300, null=True, blank=True)
+    market_url = models.URLField(null=True, blank=True)
+    market_image = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='+')
+
+
+    panels = [
+        FieldPanel('market_title'),
+        FieldPanel('market_url'),
+        FieldPanel('market_button'),
+        ImageChooserPanel('market_image')
+    ]
+    
 
 class HomePage(Page):
     heading = models.CharField(max_length=200, null=True, blank=True)
@@ -36,6 +66,22 @@ class HomePage(Page):
         related_name='+' 
     )
     # body = RichTextField(blank=True)
+
+    def page_landing(self):
+        landing_item = self.home_landing.first()
+        if landing_item:
+            return landing_item.landing_title
+        else:
+            return None
+
+    def page_market(self):
+        market_item = self.home_market.first()
+        if market_item:
+            return market_item.market_title
+        else:
+            return None
+
+    
 
     serach_fields = Page.search_fields + [
         index.SearchField('heading'),
@@ -51,7 +97,9 @@ class HomePage(Page):
             ImageChooserPanel('landing_image'),
 
         ], heading="Homepage Landing information"),
-
+        
+        InlinePanel('home_landing', label='Home landing message'),
+        InlinePanel('home_market', label='Home section for external service'),
         InlinePanel('related_links', label="Related links")
     ]
 
