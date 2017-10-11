@@ -1,5 +1,6 @@
 .env
 regonwye/settings/dev.py
-db/.sqlite3 
+*.sqlite3
+migrations/db.sqlite3
+db.sqlite3 
 db/development.sqlite3 
-.sqlite3
