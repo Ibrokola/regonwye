@@ -40,7 +40,7 @@ class FormIndexPage(Page):
 
 
     content_panels = Page.content_panels + [
-        FieldPanel('title', classname='full title'),
+        # FieldPanel('title', classname='full title'),
         ImageChooserPanel('header_image'),
         FieldPanel('index_title'),
         FieldPanel('intro', classname='Forms Intro')
@@ -50,7 +50,7 @@ class FormIndexPage(Page):
 class FormPageRelatedLink(Orderable):
     page = ParentalKey('FormPage', related_name='forms_link')
     name = models.CharField(max_length=300, null=True, blank=True)
-    url = models.URLField()
+    url = models.URLField(blank=True, null=True)
 
     panels = [
         FieldPanel('name'),
