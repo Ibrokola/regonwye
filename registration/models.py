@@ -40,7 +40,7 @@ class FormIndexPage(Page):
 
 
     content_panels = Page.content_panels + [
-        FieldPanel('title', classname='full title')
+        FieldPanel('title', classname='full title'),
         ImageChooserPanel('header_image'),
         FieldPanel('index_title'),
         FieldPanel('intro', classname='Forms Intro')
