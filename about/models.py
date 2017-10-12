@@ -20,6 +20,7 @@ class SideBarPlacement(models.Model):
     sidebar = models.ForeignKey('SideBar', related_name='+')
 
     api_fields = ['sidebar']
+    
 
 @register_snippet
 class SideBar(models.Model):
@@ -76,6 +77,7 @@ class AboutPage(Page):
     body = RichTextField(null=True, blank=True)
 
     content_panels = [
+        FieldPanel('title', classname='full'),
         ImageChooserPanel('header_image'),
         FieldPanel('heading'),
         FieldPanel('sub_heading'),

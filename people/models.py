@@ -3,6 +3,7 @@ from datetime import date
 from django import forms
 
 from django.db import models
+from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -12,6 +13,7 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
+
 
 
 
@@ -29,7 +31,7 @@ class PersonPageRelatedLink(Orderable):
 class PersonPage(Page):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    intro = models.TextField(blank=True)
+    intro = models.TextField(max_length=None, blank=True)
     biography = RichTextField(blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -54,13 +56,27 @@ class PersonPage(Page):
     ]
 
 PersonPage.content_panels = [
+    FieldPanel('title', classname="full title"),
     FieldPanel('first_name'),
     FieldPanel('last_name'),
     FieldPanel('intro'),
     FieldPanel('biography', classname="Person's biography"),
     ImageChooserPanel('image'),
+    ImageChooserPanel('feed_image'),
     InlinePanel('related_links', label="Other links to be added")
 ]
-PersonPage.promote_panels = Page.promote_panels + [
-    ImageChooserPanel('feed_image'),
-]
+# PersonPage.promote_panels = Page.promote_panels
+
+
+class PersonIndexPage(Page):
+    header_intro = models.TextField()
+    team_intro = models.TextField()
+
+    @cached_property
+    def people(self):
+        return PersonPage.objects.live().public()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('header_intro'),
+        FieldPanel('team_intro')
+    ]
