@@ -29,7 +29,7 @@ class PersonPageRelatedLink(Orderable):
 class PersonPage(Page):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    intro = RichTextField(blank=True)
+    intro = models.TextField(blank=True)
     biography = RichTextField(blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -56,7 +56,7 @@ class PersonPage(Page):
 PersonPage.content_panels = [
     FieldPanel('first_name'),
     FieldPanel('last_name'),
-    FieldPanel('intro', classname="Person's summary"),
+    FieldPanel('intro'),
     FieldPanel('biography', classname="Person's biography"),
     ImageChooserPanel('image'),
     InlinePanel('related_links', label="Other links to be added")
