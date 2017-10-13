@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static reg_blogtags %}
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
@@ -191,80 +191,10 @@
         </div>
     </div>
 
-    <div class="section section-card-blog">
-            <div class="container">
-                <div class="title-area">
-                    <!-- <h5 class="text-gray">Don't miss our</h5> -->
-                    <h2>Blog Posts</h2>
-                    <div class="separator separator-default">♦</div>
-                </div>
+    {% blog_listing_homepage %}
+
+
     
-                <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="card card-blog">
-                            <a href="" class="header">
-                                <img src="{% static "img/header-7.jpeg" %}" class="image-header">
-                            </a>
-                            <div class="content">
-                                <div class="circle-black">
-                                    <div class="circle">
-                                        <div class="date-wrapper">
-                                            <span class="month">Apr</span>
-                                            <span class="date">12</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="" class="card-title"><h3 class="h3-responsive">We Are Here to Make Life Better</h3></a>
-                                <h6 class="card-category text-warning">Life Tips & Tricks</h6>
-                                <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="card card-blog">
-                            <a href="" class="header">
-                                <img src="{% static "img/header-7.jpeg" %}" class="image-header">
-                            </a>
-                            <div class="content">
-                                <div class="circle-black">
-                                    <div class="circle">
-                                        <div class="date-wrapper">
-                                            <span class="month">Apr</span>
-                                            <span class="date">12</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="" class="card-title"><h3 class="h3-responsive">We Are Here to Make Life Better</h3></a>
-                                <h6 class="card-category text-warning">Life Tips & Tricks</h6>
-                                <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="col-md-4 col-sm-4 col-xs-6">
-                        <div class="card card-blog">
-                            <a href="" class="header">
-                                <img src="{% static "img/header-7.jpeg" %}" class="image-header">
-                            </a>
-                            <div class="content">
-                                <div class="circle-black">
-                                    <div class="circle">
-                                        <div class="date-wrapper">
-                                            <span class="month">Apr</span>
-                                            <span class="date">12</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="" class="card-title"><h3 class="h3-responsive">We Are Here to Make Life Better</h3></a>
-                                <h6 class="card-category text-warning">Life Tips & Tricks</h6>
-                                <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 {% endblock %}

@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% with post=post.specific %}
+    <div class="col-md-4 col-sm-6">
+        <div class="card card-blog">
+            <a href="{% pageurl post %}" class="header">
+                {% image post.feed_image fill-398x266 as background %}
+                <img src="{{ background.url }}" class="image-header">
+            </a>
+            <div class="content">
+                <div class="circle-black">
+                    <div class="circle">
+                        <div class="date-wrapper">
+                            <span class="month">{{ post.date|date:"d M Y" }}</span>
+                            <span class="date"></span>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% pageurl post %}" class="card-title"><h3 class="h3-responsive">{{ post.title }}</h3></a>
+                {% if post.related_author.all %}
+                    {% for author in post.related_author.all %}
+                        <p>by</p>
+                        <h6 class="card-category text-warning">{{ author.author }}{% if not forloop.last %},&nbsp;{% endif %}</h6>
+                    {% endfor %}
+                {% endif %}
+                <p class="text-description text-gray">{{ post.body|truncatewords_html:12 }}</p>
+            </div>
+        </div>
+    </div>
+    {% if post.search_description %}
+        <p>{{ post.search_description }}</p>
+    {% endif %}
+{% endwith %}

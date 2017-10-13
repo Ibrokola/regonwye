@@ -1,43 +1,77 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 {% block body_class %}template-blogpage{% endblock %}
+
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
-    <div class="intro">{{ page.intro }}</div>
+<div class="section section-header-blog">
+    <div class="parallax filter filter-color-black">
 
-    {% with categories=page.categories.all %}
-        {% if categories %}
-            <h3>Posted in:</h3>
-            <ul>
-                {% for category in categories %}
-                    <li style="display: inline">
-                        {% image category.icon fill-32x32 style="vertical-align: middle" %}
-                        {{ category.name }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    {{ page.body|richtext }}
-
-    {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
-            {% image item.image fill-320x240 %}
-            <p>{{ item.caption }}</p>
+        {% image self.header_image max-1800x978 %}
+        <div class="image"
+            style="background-image:url('self.header_image.url')">
         </div>
-    {% endfor %}
-
-
-
-    {% if page.tags.all.count %}
-        <div class="tags">
-            <h3>Tags</h3>
-            {% for tag in page.tags.all %}
-                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
-            {% endfor %}
+        <div class="container">
+            <div class="content">
+                <h1>{{ self.title }}</h1>
+                <h3 class="subtitle">{{ self.intro }}</h3>
+                <div class="separator separator-default">✻</div>
+            </div>
         </div>
-    {% endif %}
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <div class="content-blog">
+                    <p class="meta">{{ self.date }}</p>
+                    {% if self.body %}
+                        {% include  "blog/includes/streamfield.html" with content=self.body %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1 text-center col-sm-4">
+            {% with self.related_author.all as authors %}
+                {% if authors %}
+                    {% for author in authors %}
+                        <h3 class="social-title">Author</h3>
+                        
+                        <div class="author">
+                            {% if author.author.feed_image %}
+                                {% image author.author.feed_image fill-300x300 as photo %}
+                                <div class="avatar avatar-default">
+                                    <img alt="..." src="{{ photo.url }}"/>
+                                </div>
+                            {% endif %}
 
+                            <div class="description text-center">
+                                <h3 class="big-text">{{ author.author }}</h3>
+                                <!-- <p class="small-text">Designer</p> -->
+                            </div>
+                            <div class="social-buttons">
+                                <a href="#" class="btn btn-social btn-simple"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="btn btn-social btn-simple"><i class="fa fa-pinterest"></i></a>
+                                <a href="#" class="btn btn-social btn-simple"><i class="fa fa-facebook-square"></i></a>
+                            </div>
+                        </div>
+                        <!-- <h3 class="social-title">Categories</h3>
+                        <span class="label label-fill label-danger">Food</span>
+                        <span class="label label-fill label-danger">Health</span>
+                        <span class="label label-fill label-danger">Lifestyle</span>
+                        <span class="label label-fill label-danger">Breakfast</span>
+                        <h3 class="social-title">Shares - 18,5K</h3>
+                        <div class="social-buttons-blog-posts">
+                            <button class="btn btn-social btn-simple btn-padding"><i class="fa fa-facebook-square"></i></button>
+                            <button class="btn btn-social btn-simple btn-padding"><i class="fa fa-twitter"></i></button>
+                            <button class="btn btn-social btn-simple btn-padding"><i class="fa fa-instagram"></i></button>
+                            <button class="btn btn-social btn-simple btn-padding"><i class="fa fa-google-plus-square" ></i></button>
+                        </div> -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+    
 {% endblock %}
