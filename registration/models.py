@@ -25,6 +25,7 @@ class FormIndexPage(Page):
         related_name='+'
     )
     index_title = models.CharField(max_length=300, null=True, blank=True)
+    index_subtitle = models.CharField(max_length=300, null=True, blank=True)
     intro = RichTextField(blank=True)
 
     search_fields = Page.search_fields + [
@@ -36,6 +37,7 @@ class FormIndexPage(Page):
     def get_context(self, request):
         context = super(FormIndexPage, self).get_context(request)
         formpages = self.get_children().live().order_by('-first_published_at')
+        context['formpages'] = formpages
         return context
 
 
@@ -43,6 +45,7 @@ class FormIndexPage(Page):
         # FieldPanel('title', classname='full title'),
         ImageChooserPanel('header_image'),
         FieldPanel('index_title'),
+        FieldPanel('index_subtitle'),
         FieldPanel('intro', classname='Forms Intro')
     ]
 

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+<div class="section section-header section-header-about">
+    <div class="parallax filter filter-color-black">
+        {% image self.main_image max-1500x960 %}
+        <div class="image"
+            style="background-image:url('self.main_image.url')">
+        </div>
+        <div class="container">
+            <div class="content">
+                <h1 class="h1-responsive">{{ self.form_title }}</h1>
+                <!-- <h3 class="subtitle">How We Started the Journey.</h3> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="title-area">
+                <h2>Forms</h2>
+                <div class="separator separator-default">✻</div>
+                <!-- <p class="description">We promise you a new look and more importantly, a new attitude. We build that by getting to know you, your needs and creating the best looking clothes.</p> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 hidden-col-sm-down">
+
+            </div>
+            <div class="col-md-9 col-sm-6">
+                {% for item in self.forms_link.all %}
+                    <a href="{{ item.url }}"><h4>{{ item.name }}</h4></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% for item in self.about_associate.all %}
+<div class="col-sm-4 text-center">
+    {% image item.ass_image width-398 %}
+    <img src="{{ img.url }}" alt="" class="img-fluid img-responsive center-block">
+</div> 
+<!-- <br> -->
+{% endfor %}
