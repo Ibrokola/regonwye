@@ -1,9 +1,72 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 
 
 {% block content %}
+
+<div class="section section-header section-header-about">
+    <div class="parallax filter filter-color-black">
+        {% image self.header_image max-1500x960 %}
+        <div class="image"
+            style="background-image:url('self.header_image.url')">
+        </div>
+        <div class="container">
+            <div class="content">
+                <h1>{{ self.heading }}</h1>
+                <!-- <h3 class="subtitle">How We Started the Journey.</h3> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="title-area">
+                        <h5 class="subtitle text-gray">Est. 2012</h5>
+                        <h2>{{ self.sub_heading }}</h2>
+                        <div class="separator separator-default">✻</div>
+                    </div>
+                </div>
+                <div class="col-sm-7 col-md-offset-1">
+                    <div class="description">
+                        {{ self.body|richtext }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 hidden-col-sm-down">
+                
+            </div>
+            <div class="col-sm-9">
+                <div class="title-area">
+                    <h3>Registry on Wye is a proud member of:</h3>
+                    <div class="separator separator-default">✻</div>
+                    <!-- <p class="description">We promise you a new look and more importantly, a new attitude. We build that by getting to know you, your needs and creating the best looking clothes.</p> -->
+                </div>
+                {% for item in self.about_associate.all %}
+                <div class="col-sm-4 text-center">
+                    {% image item.ass_image width-398 %}
+                    <img src="{{ img.url }}" alt="" class="img-fluid img-responsive center-block">
+                </div> 
+                <!-- <br> -->
+                {% endfor %}
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    
+</div>
+
 
 
 {% endblock %}
