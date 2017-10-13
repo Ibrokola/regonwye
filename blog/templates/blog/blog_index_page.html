@@ -1,21 +1,117 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block body_class %}template-blogindexpage{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
 
-    <div class="intro">{{ page.intro|richtext }}</div>
-    {% for post in blogpages %}
-        {% with post=post.specific %}
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+<div class="section section-header-blog">
+    <div class="parallax filter filter-color-black">
+        <div class="image"
+            style="background-image:url('{% static 'img/header-10.jpeg' %}')">
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="title-area">
+                    <h1>Blog</h1>
+                    <!-- <h3>Find only the best stories from our famous writers.</h3> -->
+                    <!-- <button type="button" class="btn btn-white btn-fill">Discover Stories</button> -->
+                </div>
+            </div>
 
-            {% with post.main_image as main_image %}
-                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
-            {% endwith %}
-            {{ post.intro }}
-            {{ post.body|richtext }}
-        {% endwith %}
-    {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<div class="section section-card-blog">
+    <div class="container">
+        <div class="title-area">
+            <!-- <h5 class="text-gray">Don't miss our</h5> -->
+            <h2>Blog Posts</h2>
+            <div class="separator separator-default">♦</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="card card-blog">
+                    <a href="" class="header">
+                        <img src="{% static "img/header-7.jpeg" %}" class="image-header">
+                    </a>
+                    <div class="content">
+                        <div class="circle-black">
+                            <div class="circle">
+                                <div class="date-wrapper">
+                                    <span class="month">Apr</span>
+                                    <span class="date">12</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" class="card-title"><h3 class="h3-responsive">We Are Here to Make Life Better</h3></a>
+                        <h6 class="card-category text-warning">Life Tips & Tricks</h6>
+                        <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="card card-blog">
+                    <a href="" class="header">
+                        <img src="{% static "img/header-7.jpeg" %}" class="image-header">
+                    </a>
+                    <div class="content">
+                        <div class="circle-black">
+                            <div class="circle">
+                                <div class="date-wrapper">
+                                    <span class="month">Apr</span>
+                                    <span class="date">12</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" class="card-title"><h3 class="h3-responsive">We Are Here to Make Life Better</h3></a>
+                        <h6 class="card-category text-warning">Life Tips & Tricks</h6>
+                        <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="card card-blog">
+                    <a href="" class="header">
+                        <img src="{% static "img/header-7.jpeg" %}" class="image-header">
+                    </a>
+                    <div class="content">
+                        <div class="circle-black">
+                            <div class="circle">
+                                <div class="date-wrapper">
+                                    <span class="month">Apr</span>
+                                    <span class="date">12</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" class="card-title"><h3 class="h3-responsive">We Are Here to Make Life Better</h3></a>
+                        <h6 class="card-category text-warning">Life Tips & Tricks</h6>
+                        <p class="text-description text-gray">Royère doesn't make a Polar bear bed but the Polar bear couch is my favorite piece of furniture we own The Pablo pop up was almost a pop up of influence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+
+<h1>{{ page.title }}</h1>
+
+<div class="intro">{{ page.intro|richtext }}</div>
+{% for post in blogpages %}
+    {% with post=post.specific %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+
+        {% with post.main_image as main_image %}
+            {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+        {% endwith %}
+        {{ post.intro }}
+        {{ post.body|richtext }}
+    {% endwith %}
+{% endfor %}
