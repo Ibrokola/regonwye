@@ -37,7 +37,7 @@
                     {% image block.value.image width-1280 as theimage %}
                 {% endif %}
 
-                <img src="{{ theimage.url }}" width="{{ theimage.width }}" height="{{ theimage.height }}" alt="{{ theimage.alt }}" />
+                <img src="{{ theimage.url }}" width="{{ theimage.width }}" height="{{ theimage.height }}" alt="{{ theimage.alt }}" class="img-fluid img-responsive" />
 
                 {% if block.value.caption %}
                     <div class="caption">
