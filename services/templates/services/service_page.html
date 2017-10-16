@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags static %}
+{% block content %}
+
+<div class="section section-header-blog">
+    <div class="parallax filter filter-color-black">
+
+        {% image self.header_image max-1800x978 %}
+        <div class="image"
+            style="background-image:url('self.header_image.url')">
+        </div>
+        <div class="container">
+            <div class="content">
+                <h1>{{ self.title }}</h1>
+                <!-- <h3 class="subtitle">{{ self.intro }}</h3>
+                <div class="separator separator-default">✻</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    
+</div>
+<div class="section">
+    <div class="container">
+        <p><a href="{{ page.get_parent.url }}">back to services</a></p>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="content-blog">
+                    <p class="meta"></p>
+                    {% if self.body %}
+                        {% include  "services/includes/streamfield.html" with content=self.body %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

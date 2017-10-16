@@ -19,6 +19,8 @@ urlpatterns = [
 
     url(r'^search/$', search_views.search, name='search'),
 
+    url(r'^services/', include('services.urls', namespace="service")),
+
     url(r'^terms/$', TemplateView.as_view(template_name="terms.html")),
     url(r'^privacy/$', TemplateView.as_view(template_name="privacy.html")),
 

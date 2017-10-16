@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags static reg_blogtags %}
+{% load wagtailcore_tags wagtailimages_tags static reg_blogtags service_pagetags %}
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
@@ -60,70 +60,8 @@
             </div>
         </div>
     </div>
-    <div class="section section-our-projects">            
-        <div class="title-area">
-            <h2>Services</h2>
-            <div class="separator separator-default">♦</div>
-            <p class="description">
-                    Here are some of the services offered at Registry on Wye
-            </p>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="project">
-                        <img src="{% static 'img/project-1.jpg' %}" />
-                        <a class="over-area" href="">
-                            <div class="content">
-                                <label class="label label-danger label-fill">Website Redesign</label>
-                                <h2 class="h2-responsive">Famous Website Redesign</h2>
-                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-sm-6">
-                    <div class="project">
-                        <img src="{% static 'img/project-6.jpg' %}" />
-                        <a class="over-area" href="">
-                            <div class="content">
-                                <label class="label label-danger label-fill">Marketing</label>
-                                <h2 class="h2-responsive">Social Marketing</h2>
-                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="project">
-                        <img src="{% static 'img/project-4.jpg' %}" />
-                        <a class="over-area" href="">
-                            <div class="content">
-                                <label class="label label-danger label-fill">Website Redesign</label>
-                                <h2 class="h2-responsive">Behance Redesign</h2>
-                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="project">
-                        <img src="{% static 'img/project-3.jpg' %}" />
-                        <a class="over-area" href="">
-                            <div class="content">
-                                <label class="label label-info label-fill">App Development</label>
-                                <h2 class="h2-responsive">Analytics App Android</h2>
-                                <p>We will find freedom in truth as opposed to ridicule. Let's fight for our future. We can change everything. Pablo in blood It wasn’t any Kanyes</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    
+    {% service_listing_homepage %}
 
     {% blog_listing_homepage %}
 

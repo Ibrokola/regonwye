@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+<div class="section section-our-projects">            
+    <div class="title-area">
+        <h2>Services</h2>
+        <div class="separator separator-default">♦</div>
+        <p class="description">
+                Here are some of the services offered at Registry on Wye
+        </p>
+    </div>
+{% if posts %}
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-6 col-sm-6">
+                <div class="project">
+                    {% image post.feed_image fill-398x266 as background %}
+                    <img src="{{ background.url }}" />
+                    <a class="over-area" href="{% pageurl post %}">
+                        <div class="content">
+                            {% for cat in post.service_categories.all %}
+                                <label class="label label-danger label-fill">{{ cat.name }}</label>
+                            {% endfor %}
+                            <h2 class="h2-responsive">{{ post.title }}</h2>
+                            <p>{{ post.body|truncatewords_html:12 }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+</div>

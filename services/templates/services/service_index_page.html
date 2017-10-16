@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+
+
+{% block content %}
+
+<div class="section section-header section-header-about">
+    <div class="parallax filter filter-color-black">
+        {% image self.header_image max-1500x960 %}
+        <div class="image"
+            style="background-image:url('self.header_image.url')">
+        </div>
+        <div class="container">
+            <div class="content">
+                <h1>{{ self.heading }}</h1>
+                <!-- <h3 class="subtitle">How We Started the Journey.</h3> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="title-area">
+                <h2>{{ self.sub_heading }}</h2>
+                <div class="separator separator-default">✻</div>
+                <p>{{ self.body|richtext }}</p>
+            </div>
+        </div>
+
+        <!-- {# for category in all_categories #} -->
+            <!-- <h2>{{ category }}</h2> -->
+        <!-- {# endfor #} -->
+        <!-- {# if not forloop.last #} {# endif #} -->
+
+
+        {% if all_categories %}
+        <div class="" style="padding-bottom:20px;">
+            <ul class="nav nav-tabs">
+                {% for cat in all_categories %}
+                    <li role="presentation" class="active"><a href="{% url 'service:category' cat.slug %}">{{ cat.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="row">
+        {% for post in services %}
+            {% with post=post.specific %}
+                    <div class="col-md-4 col-sm-4">
+                        <div class="project">
+                            {% image post.feed_image fill-398x266 as background %}
+                            <img src="{{ background.url }}" />
+                            <a class="over-area" href="{% pageurl post %}">
+                                <div class="content">
+                                {% for cat in post.service_categories.all %}
+                                    <label class="label label-info label-fill">{{ cat.name }}</label>
+                                {% endfor %}
+                                    <h2 class="h2-responsive">{{ post.title }}</h2>
+                                    <p>{{ post.body|truncatewords_html:12 }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+            {% endwith %}
+        {% endfor %}
+        </div>
+
+        <br>
+        <br>
+        <div class="row text-center">
+            <div class="col-sm-4 previous">
+                {% if services.has_previous %}
+                    <a href="?page={{ services.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Previous</a>
+                {% endif %}
+            </div>
+            <div class="col-sm-4 pages">
+                Page {{ services.number }} of {{ services.paginator.num_pages }}
+            </div>
+            <div class="col-sm-4 next">
+                {% if services.has_next %}
+                    <a href="?page={{ services.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Next</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+    {% if category %}
+    <h2>{{ category }}</h2>
+    {% endif %}
+{% if tag %}
+    <h2>Posts tagged with '{{ tag }}'</h2>
+    {% endif %}
+
+    {% for rl in self.related_links.all %}
+        <p>{{ rl.title }}: <a href='{{ rl.link_page.url }}'>{{ rl.link_page }}</a></p>
+    {% endfor %}
+
+    {% if blogs %}
+        <ul class="list-unstyled the-loop">
+        {% for blog in blogs %}
+            <li class="blog-post-item{% if forloop.first and not category and not tag %} first-reset{% endif %}">
+                {% include 'blog/blog_post.html' with include_context="index_page" %}
+            </li>
+        {% endfor %}
+        </ul>
+
+        <ul class="pager">
+        {% if blogs.has_next %}
+          <li class="previous"><a href="?page={{ blogs.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">&larr; Older</a></li>
+        {% endif %}
+        {% if blogs.has_previous %}
+          <li class="next"><a href="?page={{ blogs.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Newer &rarr;</a></li>
+        {% endif %}
+        </ul>
+
+    {% else %}
+        <p>There are currently no blog posts</p>
+    {% endif %}        
