@@ -3,9 +3,31 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-    <div class="section section-header">
+<div class="section section-header-blog">
+    <div class="parallax">
+        {% image page.landing_image max-1800x978 %}
+        <div class="image"
+            style="background-image:url('page.landing_image.url')">
+        </div>
+        <div class="container">
+            <div class="content">
+                <!-- <div class="title-area"> -->
+                    <p style="color:brown">{{ self.heading }}<span></span></p>
+                    <h1 class="h1-responsive" style="color:orange">{{ self.sub_heading }}</h1>
+                    <!-- <div class="separator-container">
+                        <div class="separator separator-default">♦</div>
+                    </div> -->
+                    <!-- <span style="color:red">{{ self.intro|richtext }}</span> -->
+                <!-- </div> -->
+            </div>
+
+        </div>
+    </div>
+
+</div>
+    <!-- <div class="section section-header section-header-small">
         <div class="parallax">
-                {% image page.landing_image max-1800x978 %}
+                {# image page.landing_image max-1800x978 #}
             <div class="image" style="
                 background-image: url('page.landing_image.url')">
             </div>
@@ -13,20 +35,21 @@
             <div class="container">
                 {# for post in homepage #}
                 <div class="content">
-                    <p style="color:black;">{{ self.heading }}<span></span></p>
-                    <h1 class="h1-responsive" style="color:black;">{{ self.sub_heading }}</h1>
+                    <p>{{ self.heading }}<span></span></p>
+                    <h1 class="h1-responsive">{{ self.sub_heading }}</h1>
                     <div class="separator-container">
                         <div class="separator separator-default">♦</div>
                     </div>
                     <span>{{ self.intro|richtext }}</span>
-                    <!-- <h5></h5> -->
+                    <h5></h5>
                 </div>
                 {# endfor #}
             </div>
-        </div>
-        <a href="" data-scroll="true" data-id="#firstSection" class="scroll-arrow hidden-xs hidden-sm">
+        </div> -->
+
+        <!-- <a href="" data-scroll="true" data-id="#firstSection" class="scroll-arrow hidden-xs hidden-sm">
             <i class="fa fa-angle-down"></i>
-        </a>
+        </a> -->
     </div>
     <div class="section" id="firstSection">
         <div class="container">
@@ -41,10 +64,10 @@
             </div>
         </div>
     </div>
-    <div class="section section-get-started">
-        <div class="parallax filter filter-color-black">
-            <div class="image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3e/I-80_Eastshore_Fwy.jpg')">
-            </div>
+    <div class="section section-get-started" style="background-color:#FAF1E2;">
+        <div class="parallax">
+            <!-- <div class="image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3e/I-80_Eastshore_Fwy.jpg')">
+            </div> -->
             <div class="container">
                 <div class="row">
                 {% for item in self.home_market.all %}
@@ -53,7 +76,7 @@
                             {# image item.market_image fill-300x300 #}
                             <img src="{{ background.url }}" alt="" class="img-fluid img-responsive center-block">
                         <h4>{{ item.market_title }}</h4>
-                        <a href="{{ item.market_url }}" target="_blank"><button type="button" class="btn btn-danger btn-round">{{ item.market_button }}</button></a>
+                        <a href="{{ item.market_url }}" target="_blank"><button type="button" class="btn btn-danger btn-fill btn-round">{{ item.market_button }}</button></a>
                     </div>
                 {% endfor %}
                 </div>

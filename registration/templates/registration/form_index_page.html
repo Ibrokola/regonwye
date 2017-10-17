@@ -6,22 +6,20 @@
 
 
 {% block content %}
-<div class="section section-header section-header-about">
-    <div class="parallax filter filter-color-black">
-        {% image self.header_image max-1500x960 %}
-        <div class="image"
-            style="background-image:url('self.header_image.url')">
-        </div>
+<div class="section section-header section-header-small">
+    <div class="parallax">
+        {# image self.header_image max-1500x960 #}
+        <div class="image" style="background-image: url('{% static 'img/form.jpeg' %}')"></div>
+
         <div class="container">
             <div class="content">
-                <h1 class="h1-responsive">{{ self.index_title }}</h1>
-                <!-- <h3 class="subtitle">How We Started the Journey.</h3> -->
+                <h1 style="color:#E1D7D8">{{ self.index_title }}</h1>
             </div>
         </div>
     </div>
 </div>
 
-<div class="section">
+<div class="section" style="background-color: #F7ECED">
     <div class="container">
         <div class="row">
             <div class="title-area">
