@@ -1,4 +1,4 @@
-{% load home_pagetags wagtailcore_tags %}
+{% load home_pagetags wagtailcore_tags static %}
 {% get_site_root as site_root %}
 
 <nav class="navbar navbar-default navbar-transparent navbar-fixed-top" color-on-scroll="200">
@@ -12,7 +12,7 @@
                 <span class="icon-bar bar3"></span>
             </button>
             <a href="{% pageurl site_root %}" class="navbar-brand" title="{{ site_root.title }}" data-placement="bottom">
-                RegOnWye
+                <img src="{% static 'img/logo.png' %}" width="110" height="60" class="img-responsive wow bounceInLeft" data-wow-delay="0.35s"/>
             </a>
         </div>
         <div class="collapse navbar-collapse">
