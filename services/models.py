@@ -196,6 +196,33 @@ class ServiceCategoryServicePage(models.Model):
     ]
 
 
+class RoadTestLink(Orderable):
+    page = ParentalKey('ServicePage', related_name='road_tests')
+    name = models.CharField(max_length=300, null=True, blank=True)
+    url = models.URLField(blank=True, null=True)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('url')
+    ]
+
+class ServicePageRelatedLink(Orderable):
+    page = ParentalKey('ServicePage', related_name='drivers_guide')
+    name = models.CharField(max_length=300, null=True, blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    url = models.URLField(null=True, blank=True)
+    panels = [
+        FieldPanel('name'),
+        ImageChooserPanel('image'),
+        FieldPanel('url')
+    ] 
+
 
 class ServicePage(Page):
     header_image = models.ForeignKey(
@@ -267,4 +294,6 @@ ServicePage.content_panels = [
     InlinePanel('categories', label=_("Categories")),
     StreamFieldPanel('body'),
     ImageChooserPanel('feed_image'),
+    InlinePanel('road_tests', label='iframe for road tests'),
+    InlinePanel('drivers_guide', label='drivers guide on road test page')
 ]
