@@ -3,6 +3,7 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
+
 {% endblock %}
 
 {% block content %}
@@ -13,10 +14,10 @@
             style="background-image:url('page.landing_image.url')">
         </div>
         <div class="container">
-            <div class="content">
+            <div class="content type-js">
                 <!-- <div class="title-area"> -->
-                    <p style="color:brown">{{ self.heading }}<span></span></p>
-                    <h1 class="h1-responsive" style="color:orange">{{ self.sub_heading }}</h1>
+                    <p style="color:brown text-js">{{ self.heading }}<span></span></p>
+                    <h1 class="h1-responsive text-js" style="color:orange">{{ self.sub_heading }}</h1>
                     <!-- <div class="separator-container">
                         <div class="separator separator-default">♦</div>
                     </div> -->
@@ -92,6 +93,41 @@
 
 
     
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    function autoType(elementClass, typingSpeed){
+    var thhis = $(elementClass);
+    thhis = thhis.find(".text-js");
+    var text = thhis.text().trim().split('');
+    var amntOfChars = text.length;
+    var newString = "";
+    thhis.text("|");
+    setTimeout(function(){
+        thhis.prev().removeAttr("style");
+        thhis.text("");
+        for(var i = 0; i < amntOfChars; i++){
+        (function(i,char){
+            setTimeout(function() {        
+            newString += char;
+            thhis.text(newString);
+            },i*typingSpeed);
+        })(i+1,text[i]);
+        }
+    },1500);
+    }
+
+    $(document).ready(function(){
+    // Now to start autoTyping just call the autoType function with the 
+    // class of outer div
+    // The second paramter is the speed between each letter is typed.   
+    autoType(".type-js",200);
+    });
+</script>
 
 
 {% endblock %}
