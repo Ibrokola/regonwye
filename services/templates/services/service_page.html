@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="section section-header-blog">
-    <div class="parallax filter filter-color-black">
+    <div class="parallax">
 
         {% image self.header_image max-1800x978 %}
         <div class="image"
@@ -24,7 +24,7 @@
 </div>
 <div class="section">
     <div class="container">
-        <p><a href="{{ page.get_parent.url }}">back to services</a></p>
+        <p><a href="{{ page.get_parent.url }}"><button class="btn btn-fill btn-warning">back to services</button></a></p>
         <div class="row">
             <div class="col-md-8">
                 <div class="content-blog">
