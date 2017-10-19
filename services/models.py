@@ -297,3 +297,4 @@ ServicePage.content_panels = [
     InlinePanel('road_tests', label='iframe for road tests'),
     InlinePanel('drivers_guide', label='drivers guide on road test page')
 ]
+
