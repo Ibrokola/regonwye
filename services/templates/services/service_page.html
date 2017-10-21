@@ -25,8 +25,33 @@
 <div class="section">
     <div class="container">
         <p><a href="{{ page.get_parent.url }}"><button class="btn btn-fill btn-warning">back to services</button></a></p>
+
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
+                {% if self.road_tests.all %}
+                    {% for post in self.road_tests.all %}
+
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+        {% if self.drivers_guide.all %}
+            {% for item in self.drivers_guide.all %}
+                <div class="col-sm-4">
+                    <a href="{{ item.url }}">
+                        {% image item.image fill-398x398 as background %}
+                        <img src="{{ background.url }}" alt="" class="img-fluid img-responsive center-block">
+                        <h4>{{ item.name }}</h4>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
                 <div class="content-blog">
                     <p class="meta"></p>
                     {% if self.body %}
