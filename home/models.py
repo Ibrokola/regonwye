@@ -45,6 +45,12 @@ class HomePageMarketing(Orderable):
         on_delete=models.SET_NULL,
         related_name='+')
 
+    serach_fields = Page.search_fields + [
+    index.SearchField('market_title'),
+    # index.SearchField('sub_heading'),
+    # index.SearchField('intro')
+    ]
+
 
     panels = [
         FieldPanel('market_title'),
