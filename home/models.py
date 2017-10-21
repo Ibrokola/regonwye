@@ -45,7 +45,7 @@ class HomePageMarketing(Orderable):
         on_delete=models.SET_NULL,
         related_name='+')
 
-    serach_fields = Page.search_fields + [
+    search_fields = Page.search_fields + [
     index.SearchField('market_title'),
     # index.SearchField('sub_heading'),
     # index.SearchField('intro')
@@ -89,7 +89,7 @@ class HomePage(Page):
 
     
 
-    serach_fields = Page.search_fields + [
+    search_fields = Page.search_fields + [
         index.SearchField('heading'),
         index.SearchField('sub_heading'),
         index.SearchField('intro')
