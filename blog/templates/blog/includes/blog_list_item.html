@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% with post=post.specific %}
-    <div class="col-md-4 col-sm-6">
+    <div class="col-md-4 col-sm-6 wow bounceInRight" data-wow-delay="1.4s">
         <div class="card card-blog">
             <a href="{% pageurl post %}" class="header">
                 {% image post.feed_image fill-398x266 as background %}

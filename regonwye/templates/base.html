@@ -45,6 +45,7 @@
             <!--     Fonts and icons     -->
         <link href='https://fonts.googleapis.com/css?family=Cambo|Lato:400,700' rel='stylesheet' type='text/css'>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" rel="stylesheet">
         <link href="{% static 'css/fonts/pe-icon-7-stroke.css' %}" rel="stylesheet">
 
         {# Global stylesheets #}
@@ -81,6 +82,10 @@
         <!--   file where we handle all the script from the Gaia - Bootstrap Template   -->
         <script type="text/javascript" src="{% static 'js/gaia.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/regonwye.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+        <script>
+            new WOW().init();
+        </script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}

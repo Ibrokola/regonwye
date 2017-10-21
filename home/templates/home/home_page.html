@@ -16,7 +16,7 @@
         <div class="container">
             <div class="content type-js">
                 <!-- <div class="title-area"> -->
-                    <p style="color:brown text-js">{{ self.heading }}<span></span></p>
+                    <p style="color:brown text-js wow fadeInDown" data-wow-delay="0.37s">{{ self.heading }}<span></span></p>
                     <h1 class="h1-responsive text-js" style="color:orange">{{ self.sub_heading }}</h1>
                     <!-- <div class="separator-container">
                         <div class="separator separator-default">♦</div>
@@ -74,7 +74,7 @@
             <div class="container">
                 <div class="row">
                 {% for item in self.home_market.all %}
-                    <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="col-md-3 col-sm-3 col-xs-6 wow flipInY wHighlight" data-wow-delay="0.80s">
                             {% image item.market_image fill-398x398 as background %}
                             {# image item.market_image fill-300x300 #}
                             <img src="{{ background.url }}" alt="" class="img-fluid img-responsive center-block">
