@@ -13,7 +13,7 @@ register = template.Library()
 def service_listing_homepage(context, count=4):
     posts = ServicePage.objects.live().order_by('-first_published_at')
     return {
-        'posts': posts[count:],
+        'posts': posts[:count],
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }
