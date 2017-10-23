@@ -279,8 +279,11 @@ class ServicePage(Page):
         context = get_service_context(context)
         return context
 
+    def get_first_four(self):
+        pass
+
     class Meta:
-        ordering = ['date']
+        ordering = ['first_published_at']
         verbose_name = _('Service page')
         verbose_name_plural = _('Services pages')
 
