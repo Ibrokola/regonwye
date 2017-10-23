@@ -11,9 +11,9 @@ register = template.Library()
 # Blog feed for home page
 @register.inclusion_tag('services/tags/service_listing_homepage.html',takes_context=True)
 def service_listing_homepage(context, count=4):
-    posts = ServicePage.objects.live().order_by('-first_published_at')[:4]
+    posts = ServicePage.objects.live().order_by('-first_published_at')
     return {
-        'posts': posts[:count],
+        'posts': posts[count:],
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }

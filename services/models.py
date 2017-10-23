@@ -283,7 +283,7 @@ class ServicePage(Page):
         pass
 
     class Meta:
-        ordering = ['first_published_at']
+        ordering = ['-first_published_at']
         verbose_name = _('Service page')
         verbose_name_plural = _('Services pages')
 
