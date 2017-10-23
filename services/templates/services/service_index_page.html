@@ -95,7 +95,7 @@
             <a href="?page={{ services.previous_page_number }}{# for key,value in request.GET.items #}{# ifnotequal key 'page' #}&amp;{{ key }}={{ value }}{# endifnotequal #}{# endfor #}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
-        {% endif %}
+        {# endif #}
         </li>
         <a href="#"></a>
             <li>Page {{ services.number }} of {{ services.paginator.num_pages }}</li>    
