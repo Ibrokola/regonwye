@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # sys.path.append(BASE_DIR)
 
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = config('SECRET_KEY')
 
