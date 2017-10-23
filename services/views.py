@@ -38,7 +38,7 @@ class LatestEntriesFeed(Feed):
 
     def items(self, service):
         num = getattr(settings, 'SERVICE_PAGINATION_PER_PAGE', 10)
-        return service.get_descendants().order_by('-first_published_at')[:num]
+        return service.get_descendants().order_by('first_published_at')[:num]
 
     def item_title(self, item):
         return item.title
@@ -68,7 +68,7 @@ class LatestCategoryFeed(Feed):
 
     def items(self, obj):
         return ServicePage.objects.filter(
-            categories__category=obj).order_by('-date')[:5]
+            categories__category=obj).order_by('date')[:5]
 
     def item_title(self, item):
         return item.title
