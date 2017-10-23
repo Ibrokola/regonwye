@@ -69,7 +69,7 @@
         <div class="row text-center">
             <div class="col-sm-4 previous">
                 {% if services.has_previous %}
-                    <a href="?page={{ services.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Previous</a>
+                    <a href="?page={{ services.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="btn btn-simple btn-warning">Previous</a>
                 {% endif %}
             </div>
             <div class="col-sm-4 pages">
@@ -77,7 +77,7 @@
             </div>
             <div class="col-sm-4 next">
                 {% if services.has_next %}
-                    <a href="?page={{ services.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">Next</a>
+                    <a href="?page={{ services.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="btn btn-simple btn-warning">Next</a>
                 {% endif %}
             </div>
         </div>
