@@ -40,7 +40,7 @@
         <div class="row">
         {% for post in services %}
             {% with post=post.specific %}
-            <div class="col-md-4">
+            <div class="col-md-3 col-sm-3">
                 <div class="card card-blog card-plain">
                     <a href="{% pageurl post %}" class="header">
                         {% image post.feed_image fill-398x266 as background %}
