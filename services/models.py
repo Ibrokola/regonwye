@@ -280,7 +280,7 @@ class ServicePage(Page):
         return context
 
     class Meta:
-        # ordering = ['date']
+        ordering = ['date']
         verbose_name = _('Service page')
         verbose_name_plural = _('Services pages')
 
