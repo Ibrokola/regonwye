@@ -39,9 +39,9 @@
         <div class="row">
         {% if self.drivers_guide.all %}
             {% for item in self.drivers_guide.all %}
-                <div class="col-sm-4">
+                <div class="col-sm-4 text-center">
                     <a href="{{ item.url }}">
-                        {% image item.image fill-398x398 as background %}
+                        {% image item.image fill-398x560 as background %}
                         <img src="{{ background.url }}" alt="" class="img-fluid img-responsive center-block">
                         <h4>{{ item.name }}</h4>
                     </a>
