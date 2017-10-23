@@ -7,13 +7,13 @@
         {% elif block.block_type == 'h2' %}
             <h2>{{ block }}</h2>
         {% elif block.block_type == 'h3' %}
-            <h3>{{ block }}</h3>
+            <h3 style="color:orange">{{ block }}</h3>
         {% elif block.block_type == 'h4' %}
-            <h4>{{ block }}</h4>
+            <h4 style="color:orange">{{ block }}</h4>
         {% elif block.block_type == 'h5' %}
-            <h4>{{ block }}</h4>
+            <h5 style="color:orange">{{ block }}</h5>
         {% elif block.block_type == 'h6' %}
-            <h4>{{ block }}</h4>
+            <h6 style="color:orange">{{ block }}</h6>
         {% elif block.block_type == 'intro' %}
             <div class="intro">{{ block|richtext }}</div>
         {% elif block.block_type == 'aligned_html' %}
