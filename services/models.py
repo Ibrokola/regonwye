@@ -109,7 +109,7 @@ class ServiceIndexPage(Page):
 
         # Pagination
         page = request.GET.get('page')
-        page_size = 10
+        page_size = 9
         if hasattr(settings, 'SERVICE_PAGINATION_PER_PAGE'):
             page_size = settings.SERVICE_PAGINATION_PER_PAGE
 
