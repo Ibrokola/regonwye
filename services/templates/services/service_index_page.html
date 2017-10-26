@@ -81,7 +81,7 @@
 
                 {% for page_number in services.paginator.page_range %}
                     {% if services.number == page_number %}
-                        <li class="active-warning"><a href="">{{ page_number }}<span class="sr-only">(current)</span></a></li>
+                        <li class="active warning"><a href="">{{ page_number }}<span class="sr-only">(current)</span></a></li>
                     {% else %}
                         <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
                     {% endif %}
