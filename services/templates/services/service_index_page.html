@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load wagtailcore_tags wagtailimages_tags static %}
-
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
 
 
 {% block content %}
@@ -66,45 +65,40 @@
         <br>
         <br>
 
-        <div class="row text-center">
-            <div class="col-sm-4 previous">
-                {% if services.has_previous %}
-                    <a href="?page={{ services.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="btn btn-simple btn-warning">Previous</a>
+        {# if services.has_other_pages #}
+        <nav aria-label="Page navigation" class="text-center">
+            <ul class="pagination">
+            {% if services.paginator.num_pages == 1 %}
+            <li>{% trans "Page 1 of 1" %}</li>
+            {% else %}    
+                {% if services.number > 1 %}
+                <li>
+                    <a href="?page={{ services.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
                 {% endif %}
-            </div>
-            <div class="col-sm-4 pages">
-                Page {{ services.number }} of {{ services.paginator.num_pages }}
-            </div>
-            <div class="col-sm-4 next">
-                {% if services.has_next %}
-                    <a href="?page={{ services.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="btn btn-simple btn-warning">Next</a>
+
+                {% for page_number in services.paginator.page_range %}
+                    <!-- {# if services.number == page_number #}
+                        <li><a href="">{{ page_number }}</a></li>
+                    {# else #} -->
+                        <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+                    <!-- {# endif #} -->
+                {% endfor %}
+
+                {% if services.number < services.paginator.num_pages %}
+                <li>
+                    <a href="?page={{ services.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
                 {% endif %}
-            </div>
-        </div>
+            {% endif %}
+            </ul>
+        </nav>
+        {# endif #}
     </div>
 </div>
 
 {% endblock %}
-
-
-
-<!-- <nav aria-label="Page navigation" class="text-center">
-    <ul class="pagination">
-        <li>
-        {# if services.has_previous #}
-            <a href="?page={{ services.previous_page_number }}{# for key,value in request.GET.items #}{# ifnotequal key 'page' #}&amp;{{ key }}={{ value }}{# endifnotequal #}{# endfor #}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        {# endif #}
-        </li>
-        <a href="#"></a>
-            <li>Page {{ services.number }} of {{ services.paginator.num_pages }}</li>    
-        <li>
-        {# if services.has_next #}
-            <a href="?page={{ services.next_page_number }}{# for key,value in request.GET.items #}{# ifnotequal key 'page' #}&amp;{{ key }}={{ value }}{# endifnotequal #}{# endfor #}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        {# endif #}
-        </li>
-    </ul>
-</nav> -->
