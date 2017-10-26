@@ -29,43 +29,48 @@
                 {% include 'blog/includes/blog_list_item.html' %}
             {% empty %}
                 No blogs found
+                {% if forloop.counter|divisibleby:3 %}
+                    </div><div class="row">
+                {% endif %}
         {% endfor %}
         </div>
     </div>
     <br>
     <br>
 
-    <nav aria-label="Page navigation" class="text-center">
-        <ul class="pagination">
-        {% if blogpages.paginator.num_pages == 1 %}
-        <li>{% trans "Page 1 of 1" %}</li>
-        {% else %}    
-            {% if blogpages.number > 1 %}
-            <li>
-                <a href="?page={{ blogpages.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% endif %}
-
-            {% for page_number in blogpages.paginator.page_range %}
-                {% if blogpages.number == page_number %}
-                    <li class="active warning"><a href="">{{ page_number }}<span class="sr-only">(current)</span></a></li>
-                {% else %}
-                    <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+    <div class="col-sm-12 text-center">
+        <nav aria-label="Page navigation" class="text-center">
+            <ul class="pagination">
+            {% if blogpages.paginator.num_pages == 1 %}
+            <li>{% trans "Page 1 of 1" %}</li>
+            {% else %}    
+                {% if blogpages.number > 1 %}
+                <li>
+                    <a href="?page={{ blogpages.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
                 {% endif %}
-            {% endfor %}
 
-            {% if blogpages.number < blogpages.paginator.num_pages %}
-            <li>
-                <a href="?page={{ blogpages.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
+                {% for page_number in blogpages.paginator.page_range %}
+                    {% if blogpages.number == page_number %}
+                        <li class="active warning"><a href="">{{ page_number }}<span class="sr-only">(current)</span></a></li>
+                    {% else %}
+                        <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if blogpages.number < blogpages.paginator.num_pages %}
+                <li>
+                    <a href="?page={{ blogpages.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
             {% endif %}
-        {% endif %}
-        </ul>
-    </nav>
+            </ul>
+        </nav>
+    </div>
 </div>
 
 
