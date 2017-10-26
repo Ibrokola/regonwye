@@ -60,8 +60,9 @@
             </div>
             {% endwith %}
         {% endfor %}
-        </div>
-
+        {% if forloop.counter|divisibleby:3 %}
+            </div><div class="row">
+        {% endif %}
         <br>
         <br>
 
