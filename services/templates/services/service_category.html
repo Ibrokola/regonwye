@@ -6,8 +6,9 @@
 {% block content %}
 <div class="section section-header section-header-small">
     <div class="parallax">
-        {# image self.header_image max-1500x960 #}
-        <div class="image" style="background-image: url('{% static 'img/corporate_reg.jpeg' %}')"></div>
+        {% image self.header_image max-1500x960 %}
+        <div class="image img-responsive img-fluid" style="background-image: url('self.header_image.url')"></div>
+        <!-- {# static 'img/corporate_reg.jpeg' #} -->
 
         <div class="container">
             <div class="content">
