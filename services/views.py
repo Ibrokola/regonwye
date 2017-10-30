@@ -1,3 +1,5 @@
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Count, Q
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from .models import ServiceIndexPage, ServicePage, ServiceCategory
@@ -10,8 +12,35 @@ from django.conf import settings
 #     return index.serve(request, tag=tag)
 
 
+# def category_view(request, category):
+#     index = ServiceIndexPage.objects.first()
+#     context = {'index':index}
+#     template = 'services/category.html'
+#     return render(request, template, context)
+    # return index.serve(request, template, context)
+
+# queryset=Person.objects.filter(~Q(id__in=self.campaign.recipients.all()))
+
 def category_view(request, category):
     index = ServiceIndexPage.objects.first()
+    # serve_cat = get_object_or_404(ServiceCategory,slug=category)
+    # serve_cat_list = ServiceCategory.objects.filter(slug=category,
+    #     parent=None,
+    #     ).prefetch_related(
+    #         'parent',
+    #     ).annotate(
+    #         service_count=Count('servicepage'),
+    #     )
+    # serve_list = serve_cat_list.servicepage.servicecategoryservicepage.all()
+    # serve_list = serve_cat_list.servicepage_set.all()
+    # context = {
+        # 'index':index,
+        # 'serve_cat':serve_cat,
+        # 'serve_cat_list':serve_cat_list,
+        # 'serve_list':serve_list
+        # }
+    # template = 'services/category.html'
+    # return render(request, template, context)
     return index.serve(request, category=category)
 
 

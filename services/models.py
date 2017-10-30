@@ -62,13 +62,13 @@ class AlignedHTMLBlock(StructBlock):
 
 def get_service_context(context):
     context['all_categories'] = ServiceCategory.objects.all()
-    context['root_categories'] = ServiceCategory.objects.filter(
-        parent=None,
-    ).prefetch_related(
-        'children',
-    ).annotate(
-        service_count=Count('servicepage'),
-    )
+    # context['root_categories'] = ServiceCategory.objects.filter(
+    #     content_type
+    # ).prefetch_related(
+    #     'children',
+    # ).annotate(
+    #     service_count=Count('servicepage'),
+    # )
     return context
 
 
@@ -97,15 +97,15 @@ class ServiceIndexPage(Page):
        
         # services = self.get_children().live().order_by('-first_published_at') #.prefetch_related('categories', 'categories__category')
 
-        services = ServicePage.objects.child_of(self).live().order_by('-first_published_at').prefetch_related('categories', 'categories__category')
+        services_cat = ServiceCategory.objects.child_of(self).live().order_by('-first_published_at')#.prefetch_related('categories', 'categories__category')
 
-        if category is None:
-            if request.GET.get('category'):
-                category = get_object_or_404(ServiceCategory, slug=request.GET.get('category'))
-        if category:
-            if not request.GET.get('category'):
-                category = get_object_or_404(ServiceCategory, slug=category)
-            services = services.filter(categories__category__name=category)
+        # if category is None:
+        #     if request.GET.get('category'):
+        #         category = get_object_or_404(ServiceCategory, slug=request.GET.get('category'))
+        # if category:
+        #     if not request.GET.get('category'):
+        #         category = get_object_or_404(ServiceCategory, slug=category)
+        #     services = services.filter(categories__category__name=category)
 
         # Pagination
         page = request.GET.get('page')
@@ -114,17 +114,17 @@ class ServiceIndexPage(Page):
             page_size = settings.SERVICE_PAGINATION_PER_PAGE
 
         if page_size is not None:
-            paginator = Paginator(services, page_size)  # Show 10 services per page
+            paginator = Paginator(services_cat, page_size)  # Show 10 services per page
             try:
-                services = paginator.page(page)
+                services_cat = paginator.page(page)
             except PageNotAnInteger:
-                services = paginator.page(1)
+                services_cat = paginator.page(1)
             except EmptyPage:
-                services = paginator.page(paginator.num_pages)
+                services_cat = paginator.page(paginator.num_pages)
 
 
-        context['services'] = services
-        context['category'] = category
+        context['services_cat'] = services_cat
+        # context['category'] = category
         context = get_service_context(context)
 
         return context
@@ -133,7 +133,7 @@ class ServiceIndexPage(Page):
 
     class Meta:
         verbose_name = _('Service index')
-    subpage_types = ['services.ServicePage']
+    subpage_types = ['services.ServiceCategory']
 
 
     content_panels = [
@@ -145,55 +145,162 @@ class ServiceIndexPage(Page):
     ]
 
 
-@register_snippet
-class ServiceCategory(models.Model):
-    name = models.CharField(max_length=250, unique=True, verbose_name=_('Category Name'))
-    slug = models.SlugField(unique=True, max_length=250)
-    parent = models.ForeignKey('self', blank=True, null=True, related_name="children")
+class ServiceCategory(Page):
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    name = models.CharField(max_length=250, null=True, blank=True, verbose_name=_('Category Name'))
     date = models.DateField(auto_now_add=True, auto_now=False, null=True, blank=True)
     description = RichTextField(blank=True)
+    feed_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name=_('Feed image')
+    )
+
+
+    def get_context(self, request, category=None, *args, **kwargs):
+        context = super(ServiceCategory, self).get_context(request, *args, **kwargs)
+       
+        # services = self.get_children().live().order_by('-first_published_at') #.prefetch_related('categories', 'categories__category')
+
+        services = ServicePage.objects.child_of(self).live().order_by('-first_published_at')#.prefetch_related('categories', 'categories__category')
+
+        # if category is None:
+        #     if request.GET.get('category'):
+        #         category = get_object_or_404(ServiceCategory, slug=request.GET.get('category'))
+        # if category:
+        #     if not request.GET.get('category'):
+        #         category = get_object_or_404(ServiceCategory, slug=category)
+        #     services = services.filter(categories__category__name=category)
+
+        # Pagination
+        page = request.GET.get('page')
+        page_size = 9
+        if hasattr(settings, 'SERVICE_PAGINATION_PER_PAGE'):
+            page_size = settings.SERVICE_PAGINATION_PER_PAGE
+
+        if page_size is not None:
+            paginator = Paginator(services, page_size)  # Show 9 services per page
+            try:
+                services = paginator.page(page)
+            except PageNotAnInteger:
+                services = paginator.page(1)
+            except EmptyPage:
+                services = paginator.page(paginator.num_pages)
+
+
+        context['services'] = services
+        # context['category'] = category
+        context = get_service_context(context)
+
+        return context
+
+
 
     class Meta:
         ordering = ['-date']
-        verbose_name = _("Service Category")
+        verbose_name = _('Service Category')
         verbose_name_plural = _("Service Categories")
+    subpage_types = ['services.ServicePage']
 
-    panels = [
+    
+
+
+
+    # class Meta:
+    #     verbose_name = _("Service Category")
+    #     verbose_name_plural = _("Service Categories")
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        ImageChooserPanel('header_image'),
         FieldPanel('name'),
-        FieldPanel('parent'),
+        # FieldPanel('parent'),
         FieldPanel('description'),
+        ImageChooserPanel('feed_image'),
     ]
 
-    def __str__(self):
-        return self.name
-
-    def clean(self):
-        if self.parent:
-            parent = self.parent
-            if self.parent == self:
-                raise ValidationError('Parent category cannot be self.')
-            if parent.parent and parent.parent == self:
-                raise ValidationError('Cannot have circular Parents.')
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            slug = slugify(self.name)
-            count = ServiceCategory.objects.filter(slug=slug).count()
-            if count > 0:
-                slug = '{}-{}'.format(slug, count)
-            self.slug = slug
-        return super(ServiceCategory, self).save(*args, **kwargs)
+    parent_page_types = ['services.ServiceIndexPage']
 
 
+# @register_snippet
+# class ServiceCategory(models.Model):
+#     name = models.CharField(max_length=250, unique=True, verbose_name=_('Category Name'))
+#     slug = models.SlugField(unique=True, max_length=250)
+#     parent = models.ForeignKey('self', blank=True, null=True, related_name="children")
+#     date = models.DateField(auto_now_add=True, auto_now=False, null=True, blank=True)
+#     description = RichTextField(blank=True)
+#     feed_image = models.ForeignKey(
+#         'wagtailimages.Image',
+#         null=True,
+#         blank=True,
+#         on_delete=models.SET_NULL,
+#         related_name='+',
+#         verbose_name=_('Feed image')
+#     )
+
+#     class Meta:
+#         ordering = ['-date']
+#         verbose_name = _("Service Category")
+#         verbose_name_plural = _("Service Categories")
+
+#     panels = [
+#         FieldPanel('name'),
+#         FieldPanel('parent'),
+#         FieldPanel('description'),
+#         ImageChooserPanel('feed_image'),
+#     ]
+
+#     def __str__(self):
+#         return self.name
+
+#     def clean(self):
+#         if self.parent:
+#             parent = self.parent
+#             if self.parent == self:
+#                 raise ValidationError('Parent category cannot be self.')
+#             if parent.parent and parent.parent == self:
+#                 raise ValidationError('Cannot have circular Parents.')
+
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             slug = slugify(self.name)
+#             count = ServiceCategory.objects.filter(slug=slug).count()
+#             if count > 0:
+#                 slug = '{}-{}'.format(slug, count)
+#             self.slug = slug
+#         return super(ServiceCategory, self).save(*args, **kwargs)
+
+    # @property
+    # def get_cat_context(self, category=None, *args, **kwargs):
+    #     root_categories = self.objects.filter(
+    #     parent=None,
+    #     ).prefetch_related(
+    #         'children',
+    #     ).annotate(
+    #         service_count=Count('servicepage'),
+    #     )
+    #     return root_categories 
 
 
 
-class ServiceCategoryServicePage(models.Model):
-    category = models.ForeignKey(ServiceCategory, related_name="+", verbose_name=_('Category'))
-    page = ParentalKey('ServicePage', related_name='categories')
-    panels = [
-        FieldPanel('category'),
-    ]
+
+
+
+# class ServiceCategoryServicePage(models.Model):
+#     category = models.ForeignKey(ServiceCategory, related_name="+", verbose_name=_('Category'))
+#     page = ParentalKey('ServicePage', related_name='categories')
+#     panels = [
+#         FieldPanel('category'),
+#     ]
 
 
 class RoadTestLink(Orderable):
@@ -248,7 +355,7 @@ class ServicePage(Page):
         ('embed', EmbedBlock(icon="code")),
     ])
     date = models.DateField("Post date")
-    service_categories = models.ManyToManyField(ServiceCategory, through=ServiceCategoryServicePage, blank=True)
+    # service_categories = models.ManyToManyField(ServiceCategory, through=ServiceCategoryServicePage, blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -275,7 +382,7 @@ class ServicePage(Page):
     
     def get_context(self, request, *args, **kwargs):
         context = super(ServicePage, self).get_context(request, *args, **kwargs)
-        context['services'] = self.get_service_index().serviceindexpage
+        context['services'] = self.get_service_index()#.servicecategory
         context = get_service_context(context)
         return context
 
@@ -287,7 +394,7 @@ class ServicePage(Page):
         verbose_name = _('Service page')
         verbose_name_plural = _('Services pages')
 
-    parent_page_types = ['services.ServiceIndexPage']
+    parent_page_types = ['services.ServiceCategory']
 
     
 ServicePage.content_panels = [
@@ -295,10 +402,9 @@ ServicePage.content_panels = [
     FieldPanel('service_title'),
     ImageChooserPanel('header_image'),
     FieldPanel('date'),
-    InlinePanel('categories', label=_("Categories")),
+    # InlinePanel('categories', label=_("Categories")),
     StreamFieldPanel('body'),
     ImageChooserPanel('feed_image'),
     InlinePanel('road_tests', label='iframe for road tests'),
     InlinePanel('drivers_guide', label='drivers guide on road test page')
 ]
-

@@ -7,11 +7,11 @@
 <div class="section section-header section-header-small">
     <div class="parallax">
         {# image self.header_image max-1500x960 #}
-        <div class="image" style="background-image: url('{% static 'img/serv_h.jpeg' %}')"></div>
+        <div class="image" style="background-image: url('{% static 'img/corporate_reg.jpeg' %}')"></div>
 
         <div class="container">
             <div class="content">
-                <h1 style="color:#A43134; font-family: 'Great Vibes', cursive; font-size:80px;">{{ self.heading }}</h1>
+                <h1 style="color:#A43134; font-family: 'Great Vibes', cursive; font-size:80px;">{{ self.name }}</h1>
             </div>
         </div>
     </div>
@@ -22,44 +22,45 @@
         <div class="row">
             <div class="title-area">
                 <h2>{{ self.sub_heading }}</h2>
-                <div class="separator separator-default">✻</div>
-                <p>{{ self.body|richtext }}</p>
+                <!-- <div class="separator separator-default">✻</div> -->
+                <p>{{ self.description|richtext }}</p>
             </div>
         </div>
 
-        {% if all_categories %}
+        <!-- {# if all_categories #}
         <div class="" style="padding-bottom:20px;">
             <ul class="nav nav-tabs">
-                {% for cat in all_categories %}
-                    <li role="presentation" class="active"><a href="{% pageurl cat %}">{{ cat.name }}</a></li>
-                {% endfor %}
+                {# for cat in all_categories #}
+                    <li role="presentation" class="active"><a href="{# pageurl cat #}">{{ cat.name }}</a></li>
+                {# endfor #}
             </ul>
         </div>
-        {% endif %}
+        {# endif #} -->
+        <p><a href="{{ page.get_parent.url }}"><button class="btn btn-fill btn-warning">back to {{page.get_parent.title}}</button></a></p>
         <div class="row">
-        {# for post in services #}
-            {# with post=post.specific #}
-        {% for cat in all_categories %}
+        {% for post in services %}
+            {% with post=post.specific %}
+        {# for cat in all_categories #}
             <div class="col-md-4 col-sm-4">
                 <div class="card card-blog card-plain">
-                {% if cat.feed_image %}
-                    <a href="{% pageurl cat %}" class="header">
-                        {% image cat.feed_image fill-398x266 as background %}
+                {% if post.feed_image %}
+                    <a href="{% pageurl post %}" class="header">
+                        {% image post.feed_image fill-398x266 as background %}
                         <img src="{{ background.url }}" class="image-header">
                     </a>
                 {% endif %}
-                    <!-- <div class="content">
-                        <a href="{# pageurl post #}" class="card-title">
+                    <div class="content">
+                        <a href="{% pageurl post %}" class="card-title">
                             <h3>{{ post.title }}</h3>
                         </a>
                         <div class="line-divider line-danger"></div>
                         {# for cat in post.service_categories.all #}
                             <h6 class="card-category">{{ cat.name }}</h6>
                         {# endfor #}
-                    </div> -->
+                    </div>
                 </div>
             </div>
-            {# endwith #}
+            {% endwith %}
             {% if forloop.counter|divisibleby:3 %}
                 </div><div class="row">
             {% endif %}
@@ -70,28 +71,28 @@
         <div class="col-sm-12 text-center">  
             <nav aria-label="Page navigation">
                 <ul class="pagination">
-                {% if services_cat.paginator.num_pages == 1 %}
+                {% if services.paginator.num_pages == 1 %}
                 <li>{% trans "Page 1 of 1" %}</li>
                 {% else %}    
-                    {% if services_cat.number > 1 %}
+                    {% if services.number > 1 %}
                     <li>
-                        <a href="?page={{ services_cat.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Previous">
+                        <a href="?page={{ services.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     {% endif %}
 
-                    {% for page_number in services_cat.paginator.page_range %}
-                        {% if services_cat.number == page_number %}
+                    {% for page_number in services.paginator.page_range %}
+                        {% if services.number == page_number %}
                             <li class="active warning"><a href="">{{ page_number }}<span class="sr-only">(current)</span></a></li>
                         {% else %}
                             <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
                         {% endif %}
                     {% endfor %}
 
-                    {% if services_cat.number < services_cat.paginator.num_pages %}
+                    {% if services.number < services.paginator.num_pages %}
                     <li>
-                        <a href="?page={{ services_cat.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Next">
+                        <a href="?page={{ services.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
