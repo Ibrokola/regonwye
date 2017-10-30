@@ -12,7 +12,7 @@
                 <span class="icon-bar bar3"></span>
             </button>
             <a href="{% pageurl site_root %}" class="navbar-brand" title="{{ site_root.title }}">
-                <h5 class="h5-responsive" style="font-family: 'Berkshire Swash', cursive; margin-top:-10px; color:orange;"><img src="{% static 'img/logo.png' %}" class="d-inline-block align-top"  width="110" height="55" class="img-responsive wow bounceInDown" data-wow-delay="0.35s"/> Registry on Wye</h5> 
+                <h5 class="h5-responsive" style="font-family: 'Berkshire Swash', cursive; margin-top:-10px; color:orange;"><img src="{% static 'img/logo.png' %}" class="d-inline-block align-top"  width="110" height="60" class="img-responsive wow bounceInDown" data-wow-delay="0.35s"/> Registry on Wye</h5> 
             </a>
         </div>
         <div class="collapse navbar-collapse">
@@ -23,7 +23,7 @@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ menuitem.title }} <b class="caret"></b></a>
                             {% top_menu_children parent=menuitem %}
                         {% else %}
-                            <a href="{% pageurl menuitem %}" style="font-family: 'Orbitron', sans-serif;">{{ menuitem.title }}</a>
+                            <a href="{% pageurl menuitem %}" style="font-family: 'Orbitron', sans-serif; color:orange;">{{ menuitem.title }}</a>
                         {% endif %}
                     </li>       
                 {% endfor %}
